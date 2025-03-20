@@ -4,6 +4,21 @@ const app = express();
 
 
 
+
+// how to create middleware
+const checkUser = (req, res, next) =>{
+
+    let isValid = true;
+
+    if(isValid == true){
+        next()
+    }else{
+        res.send({message:"Invalid User"})
+    }
+
+}
+
+
 // first api
 app.get("/getusers", (req, res)=>{
     res.send({
@@ -18,6 +33,13 @@ app.get("/getusers/:id/:name", (req, res)=>{
     res.send({
         message:"ABCD"
     })
+})
+
+
+// post api
+app.post("/addproduct", checkUser, (req, res)=>{
+    console.log(req.body);
+    res.send({message:"Product added!"})
 })
 
 
