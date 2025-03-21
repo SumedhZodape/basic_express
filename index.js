@@ -1,48 +1,26 @@
 const express = require('express');
+const doctorRouter = require('./doctors.router.js')
 
-const app = express();
-
-
-
-
-// how to create middleware
-const checkUser = (req, res, next) =>{
-
-    let isValid = true;
-
-    if(isValid == true){
-        next()
-    }else{
-        res.send({message:"Invalid User"})
-    }
-
-}
+const app = express()
 
 
-// first api
-app.get("/getusers", (req, res)=>{
-    res.send({
-        name:"Samir",
-        age:25
-    })
-})
 
-// to get singleuser 
-app.get("/getusers/:id/:name", (req, res)=>{
-    console.log(req.params.id)
-    res.send({
-        message:"ABCD"
-    })
+// to handle doctor requests
+app.use("/doctor", doctorRouter)
+
+// http://localhost:8000/doctor/getdoctors
+
+
+// main page api - to get all the students
+app.get("/getstudents", (req, res)=>{
+    res.send({message:"Students fetched!"})
 })
 
 
-// post api
-app.post("/addproduct", checkUser, (req, res)=>{
-    console.log(req.body);
-    res.send({message:"Product added!"})
-})
+// http://localhost:8000/getstudents
 
 
+// to create server
 app.listen(8000, ()=>{
-    console.log("SERVER IS RUNNING...")
+    console.log("SERVER IS RUNNING")
 })
